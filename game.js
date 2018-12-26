@@ -1,16 +1,29 @@
 var canvas, ctx;
-window.onload = function(){
+var ballX = 75
+var ballY = 75
+var ballSpeedX = 5;
+var ballSpeedY = 7;
 
-    var ballX = 75
-    var ballY = 75
-    var ballSpeedX = 5;
-    var ballSpeedY = 7;
+const PADDLE_WIDTH = 100;
+const PADDLE_THICKNESS = 10;
+var paddleX = 400;
+
+
+function updateMousePos(evt){
+    var rect = canvas.getBoundingClientRect();
+    var root = document.documentElement;
+    var mouseX = evt.clientX -rect.left - root.scrollLeft;
+    // var mouseY = evt.clientX -rect.top - root.scrollTop;
+    paddleX = mouseX
+}
+window.onload = function(){
     canvas = document.getElementById("gameCanvas");
     ctx = canvas.getContext("2d");
 
     var framesPerSecoud = 30;
     setInterval(updateAll,1000/framesPerSecoud);
-
+    canvas.addEventListener("mousemove",updateMousePos);
+}
     function updateAll(){
         moveAll();
         drawAll()
@@ -18,6 +31,7 @@ window.onload = function(){
     function drawAll(){
         colorRect(0,0,canvas.width,canvas.height,"#222");
         colorCircle(ballX,ballY,10,"red");
+        colorRect(paddleX,canvas.height - PADDLE_THICKNESS,PADDLE_WIDTH,PADDLE_THICKNESS,"#fff");
     }
 
     function moveAll(){
@@ -48,4 +62,3 @@ window.onload = function(){
         ctx.arc(centerX,centerY,radius,0,Math.PI*2,true);
         ctx.fill();
     }
-}
