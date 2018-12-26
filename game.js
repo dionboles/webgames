@@ -18,13 +18,16 @@ function updateMousePos(evt){
     paddleX = mouseX - PADDLE_WIDTH/2;
 }
 window.onload = function(){
+    //gets the canvas and sets the 2d
     canvas = document.getElementById("gameCanvas");
     ctx = canvas.getContext("2d");
-
+    // sets the frames per secoud 
     var framesPerSecoud = 30;
     setInterval(updateAll,1000/framesPerSecoud);
+    // tracks mouse movement 
     canvas.addEventListener("mousemove",updateMousePos);
 }
+    // updates canvas 
     function updateAll(){
         moveAll();
         drawAll()
